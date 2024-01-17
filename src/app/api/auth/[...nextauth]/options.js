@@ -17,7 +17,7 @@ export const options = {
           type:'password', placeholder: 'Password..'
         }
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         // Add logic here to look up the user from the credentials supplied
         // const user = { id: "1", name: "J Smith", email: "test@test.com" };
         
