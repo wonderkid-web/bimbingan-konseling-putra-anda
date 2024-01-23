@@ -91,14 +91,14 @@ export const columns = [
       );
     },
   },
-  {
-    id: "actions",
-    enableHiding: false,
-    cell: ({ row }) => {
-      const id = row.original.id;
-      return <Link className="p-2 rounded bg-gray-100 text-sm" href={`history/${id}`}>Detail</Link>;
-    },
-  },
+  // {
+  //   id: "actions",
+  //   enableHiding: false,
+  //   cell: ({ row }) => {
+  //     const id = row.original.id;
+  //     return <Link className="p-2 rounded bg-gray-100 text-sm" href={`history/${id}`}>Detail</Link>;
+  //   },
+  // },
 ];
 
 export function DataTableDemo({ data }) {

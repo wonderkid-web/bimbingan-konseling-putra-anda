@@ -3,46 +3,13 @@ import React from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import uuid from "react-uuid";
 
-const visiMisiSekolah = [
-  {
-    heading: "Visi Sekolah",
-    content: [
-      "Menjadi lembaga pendidikan yang unggul dalam pembentukan karakter dan prestasi akademis, berlandaskan nilai-nilai kejujuran, integritas, dan inovasi.",
-    ],
-  },
-  {
-    heading: "Misi Sekolah",
-    content: [
-      "Memberikan pendidikan berkualitas tinggi yang mempersiapkan siswa untuk menghadapi tantangan global.",
-      "Mendorong pengembangan potensi siswa dalam bidang akademis, seni, dan olahraga.",
-      "Menanamkan nilai-nilai moral dan etika dalam setiap aspek kehidupan siswa.",
-      "Mengembangkan lingkungan belajar yang inklusif, kreatif, dan berorientasi pada kolaborasi.",
-      "Bermitra dengan orang tua dan komunitas untuk mendukung perkembangan holistik siswa.",
-    ],
-  },
-  {
-    heading: "Tujuan Pembelajaran",
-    content: [
-      "Menyediakan kurikulum yang relevan dan berbasis teknologi.",
-      "Menerapkan metode pengajaran inovatif untuk meningkatkan daya serap siswa.",
-      "Memberikan dukungan tambahan bagi siswa yang membutuhkan bantuan khusus.",
-      "Menilai secara terus-menerus dan memberikan umpan balik yang konstruktif kepada siswa.",
-      "Mendorong partisipasi aktif siswa dalam kegiatan ekstrakurikuler dan proyek penelitian.",
-    ],
-  },
-  {
-    heading: "Budaya Sekolah",
-    content: [
-      "Membangun atmosfer positif dan inklusif di antara staf, siswa, dan orang tua.",
-      "Menjunjung tinggi kerja sama tim dan semangat kekeluargaan.",
-      "Mendorong sikap tanggung jawab, kedisiplinan, dan kerja keras di kalangan siswa.",
-      "Menyelenggarakan kegiatan kebersihan dan pelestarian lingkungan.",
-      "Memfasilitasi forum dialog terbuka untuk mendorong partisipasi dan umpan balik dari seluruh komunitas sekolah.",
-    ],
-  },
-];
+const getPeraturan = async () => {
+  const raw = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/rules`);
+  return raw.json();
+};
 
-export default function page() {
+export default async function page() {
+  const peraturan = await getPeraturan();
   return (
     <div className="bg-gray-100">
       <div className="container mx-auto py-8">
@@ -80,18 +47,16 @@ export default function page() {
           </div>
           <div className="col-span-4 sm:col-span-9">
             <div className="bg-white shadow rounded-lg p-6">
-              {visiMisiSekolah.map(({ heading, content }) => (
-                <>
-                  <h2 className="text-xl font-bold my-4">{heading}</h2>
-                  <p className="text-gray-700">
-                    <ul class="space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
-                      {content.map((text) => (
-                        <li key={uuid()} className="">{text}</li>
-                      ))}
-                    </ul>
-                  </p>
-                </>
-              ))}
+              <h2 className="text-2xl text-center font-bold my-4">Peraturan Sekolah</h2>
+              <p className="text-gray-700">
+                <ul class="space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
+                  {peraturan.map((text) => (
+                    <li key={uuid()} className="">
+                      {text.rule}
+                    </li>
+                  ))}
+                </ul>
+              </p>
 
               <h3 className="font-semibold text-center mt-3 -mb-2">
                 Kunjungi Social Media SMK Putra Anda Binjai
@@ -183,7 +148,7 @@ export default function page() {
                   </svg>
                 </a>
               </div>
-{/* 
+              {/* 
               <h2 className="text-xl font-bold mt-6 mb-4">Experience</h2>
               <div className="mb-6">
                 <div className="flex justify-between flex-wrap gap-2 w-full">

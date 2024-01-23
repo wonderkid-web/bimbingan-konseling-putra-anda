@@ -9,26 +9,25 @@ import { useForm } from "react-hook-form";
 export default function LoginForm() {
   const { handleSubmit, register } = useForm();
 
-  const router = useRouter()
+  const router = useRouter();
 
-    const onSubmit = async (formData) =>{
-      const signin = await signIn("credentials", {
-        ...formData,
-        redirect: false,
-      });
-  
+  const onSubmit = async (formData) => {
+    const signin = await signIn("credentials", {
+      ...formData,
+      redirect: false,
+    });
 
-      if (!signin.ok) {
-        alert('Gagal login mungkin password')
-      } else {
-        router.push("/guru");
-      }
+    if (!signin.ok) {
+      alert("Gagal login mungkin password");
+    } else {
+      router.push("/guru");
     }
+  };
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="space-y-4 md:space-y-6"
+      className="space-y-4 md:space-y-6 relative"
       action="#"
     >
       <div>
@@ -63,39 +62,16 @@ export default function LoginForm() {
           required=""
         />
       </div>
-      <div className="flex items-center justify-between">
-        <div className="flex items-start">
-          <div className="flex items-center h-5">
-            <input
-              id="remember"
-              aria-describedby="remember"
-              type="checkbox"
-              className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-              required=""
-            />
-          </div>
-          <div className="ml-3 text-sm">
-            <label htmlFor="remember" className="text-gray-500 dark:text-gray-300">
-              Remember me
-            </label>
-          </div>
-        </div>
-        <a
-          href="#"
-          className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
-        >
-          Forgot password?
-        </a>
-      </div>
+
       <button
         type="submit"
-        className="w-full bg-red-700 hover:bg-red-800 text-white focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+        className="w-full bg-red-700 hover:bg-red-800 text-white focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-6"
       >
         Sign in
       </button>
       <Link
         href={"/siswa"}
-        className="text-sm font-light my-4 text-gray-500 dark:text-gray-400"
+        className="text-sm font-light text-gray-500 dark:text-gray-400 mt-[20px]"
       >
         Masuk Sebagai Siswa?
       </Link>
