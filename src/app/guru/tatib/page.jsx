@@ -16,7 +16,6 @@ import {
 } from "@/components/ui/popover";
 import { Edit } from "@/components/Table/Edit";
 import { Toaster, toast } from "sonner";
-import { Router } from "next/router";
 import { useRouter } from "next/navigation";
 import { deleteOnServer } from "@/utils/actions";
 import { Tambah } from "@/components/Table/Tambah";

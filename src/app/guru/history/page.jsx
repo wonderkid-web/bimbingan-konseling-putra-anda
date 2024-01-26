@@ -11,8 +11,6 @@ export default async function page() {
   const history = await getHistory()
   return (
     <div>
-      <h1>History</h1>
-
       <div className="w-2/3 mx-auto">
         <DataTableDemo data={history}  />
       </div>

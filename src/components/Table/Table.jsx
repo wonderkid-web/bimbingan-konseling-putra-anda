@@ -70,27 +70,27 @@ export const columns = [
       <div className="lowercase">{row.getValue("jenis_pelangggaran")}</div>
     ),
   },
-  {
-    accessorKey: "video",
-    header: () => <div className="text-right">Bukti Media</div>,
-    cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("video"));
+  // {
+  //   accessorKey: "video",
+  //   header: () => <div className="text-right">Bukti Media</div>,
+  //   cell: ({ row }) => {
+  //     const amount = parseFloat(row.getValue("video"));
 
-      // Format the amount as a dollar amount
+  //     // Format the amount as a dollar amount
 
-      return (
-        <div className="text-right font-medium">
-          <Image
-            className="mx-auto"
-            src={row.getValue("video")}
-            alt={row.getValue("video")}
-            width={75}
-            height={75}
-          />
-        </div>
-      );
-    },
-  },
+  //     return (
+  //       <div className="text-right font-medium">
+  //         <Image
+  //           className="mx-auto"
+  //           src={row.getValue("video")}
+  //           alt={row.getValue("video")}
+  //           width={75}
+  //           height={75}
+  //         />
+  //       </div>
+  //     );
+  //   },
+  // },
   // {
   //   id: "actions",
   //   enableHiding: false,

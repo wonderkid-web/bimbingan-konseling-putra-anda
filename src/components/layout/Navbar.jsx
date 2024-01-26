@@ -50,8 +50,9 @@ export default function Navbar() {
         <div className="hidden w-full md:block md:w-auto" id="navbar-default">
           <div className="font-medium flex items-center flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 ">
             <Link href={`${user ? "/guru" : "/siswa"}/tatib`}>Tatib</Link>
+            {user && <Link href={`${user ? "/guru" : "/siswa"}/dokumen`}>Dokumen</Link>}
             <Link href={`${user ? "/guru" : "/siswa"}/history`}>History</Link>
-            <ButtonSignout />
+            {user ? <ButtonSignout /> : <Link href={'/signin'}>Keluar</Link>}
           </div>
         </div>
       </div>
