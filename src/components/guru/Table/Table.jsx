@@ -39,50 +39,79 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Link from "next/link";
-
-export const columns = [
-  {
-    accessorKey: "nisn",
-    header: "NISN",
-    cell: ({ row }) => <div className="capitalize">{row.getValue("nisn")}</div>,
-  },
-  {
-    accessorKey: "nama",
-    header: "Nama Siswa",
-    cell: ({ row }) => <div className="capitalize">{row.getValue("nama")}</div>,
-  },
-  {
-    accessorKey: "jenis_pelangggaran",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Jenis Pelanggaran
-          <CaretSortIcon className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-    cell: ({ row }) => (
-      <div className="lowercase">{row.getValue("jenis_pelangggaran")}</div>
-    ),
-  },
-  {
-    id: "actions",
-    enableHiding: false,
-    cell: ({ row }) => {
-      const id = row.original.id;
-      return <Link href={`history/${id}`}>Detail</Link>;
-    },
-  },
-];
+import ButtonSignout from "@/components/Auth/ButtonSignout";
+import { deleteHistory } from "@/utils/actions";
+import { useRouter } from "next/navigation";
+import { Toaster, toast } from "sonner";
 
 export function DataTableDemo({ data }) {
   const [sorting, setSorting] = React.useState([]);
   const [columnFilters, setColumnFilters] = React.useState([]);
   const [columnVisibility, setColumnVisibility] = React.useState({});
   const [rowSelection, setRowSelection] = React.useState({});
+
+  const router = useRouter()
+
+  const columns = [
+    {
+      accessorKey: "nisn",
+      header: "NISN",
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue("nisn")}</div>
+      ),
+    },
+    {
+      accessorKey: "nama",
+      header: "Nama Siswa",
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue("nama")}</div>
+      ),
+    },
+    {
+      accessorKey: "jenis_pelangggaran",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Jenis Pelanggaran
+            <CaretSortIcon className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
+      cell: ({ row }) => (
+        <div className="lowercase">{row.getValue("jenis_pelangggaran")}</div>
+      ),
+    },
+    {
+      id: "actions",
+      enableHiding: false,
+      cell: ({ row }) => {
+        const id = row.original.id;
+        return (
+          <div className="flex gap-2 items-center">
+            <Link href={`history/${id}`}>Detail</Link>
+            <Button
+              onClick={async () => {
+                try {
+                  const data = await deleteHistory(id);
+                  toast.success('ID :' + id + 'Berhasil dihapus')
+
+
+                } catch (error) {
+                  toast.error('ID :' + id + 'Gagal dihapus')
+                }
+                router.refresh()
+              }}
+            >
+              Hapus
+            </Button>
+          </div>
+        );
+      },
+    },
+  ];
 
   const table = useReactTable({
     data,
@@ -105,6 +134,7 @@ export function DataTableDemo({ data }) {
 
   return (
     <div className="w-full">
+      <Toaster />
       <div className="flex justify-between items-center py-4">
         <Input
           placeholder="Filter NISN..."
