@@ -14,6 +14,7 @@ import { toast } from "sonner";
 import { format } from "date-fns";
 import uuid from "react-uuid";
 import { IoTrashOutline } from "react-icons/io5";
+import { Separator } from "@radix-ui/react-dropdown-menu";
 
 const type_status = ["Bermasalah", "Proses", "Selesai"];
 
@@ -61,17 +62,20 @@ export default function UpdateStatus({ siswa, index }) {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
+        <Separator />
         {type_status.map((type) => (
           <DropdownMenuItem key={uuid()} onClick={() => onUpdateHistory(type)}>
             {type}
           </DropdownMenuItem>
         ))}
-        <DropdownMenuItem
+
+        {/* <DropdownMenuItem
           className="flex items-center gap-2"
           onClick={() => onDeleteHistory()}
         >
           Hapus <IoTrashOutline />
         </DropdownMenuItem>
+         */}
       </DropdownMenuContent>
     </DropdownMenu>
   );

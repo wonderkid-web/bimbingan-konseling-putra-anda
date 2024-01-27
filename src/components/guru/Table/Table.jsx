@@ -68,7 +68,7 @@ export function DataTableDemo({ data }) {
       ),
     },
     {
-      accessorKey: "jenis_pelangggaran",
+      accessorKey: "jenis_pelanggaran",
       header: ({ column }) => {
         return (
           <Button
@@ -81,7 +81,7 @@ export function DataTableDemo({ data }) {
         );
       },
       cell: ({ row }) => (
-        <div className="lowercase">{row.getValue("jenis_pelangggaran")}</div>
+        <div className="lowercase">{row.getValue("jenis_pelanggaran")}</div>
       ),
     },
     {

@@ -54,7 +54,7 @@ export const columns = [
     cell: ({ row }) => <div className="capitalize">{row.getValue("nama")}</div>,
   },
   {
-    accessorKey: "jenis_pelangggaran",
+    accessorKey: "jenis_pelanggaran",
     header: ({ column }) => {
       return (
         <Button
@@ -67,7 +67,7 @@ export const columns = [
       );
     },
     cell: ({ row }) => (
-      <div className="lowercase">{row.getValue("jenis_pelangggaran")}</div>
+      <div className="lowercase">{row.getValue("jenis_pelanggaran")}</div>
     ),
   },
   // {

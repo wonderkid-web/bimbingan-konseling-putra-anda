@@ -23,8 +23,8 @@ export const options = {
         
         try {
           const user = {
-            username: "test@test.com",
-            password: "test",
+            username: "admin@putraanda.com",
+            password: "admin123",
           };
 
           // const user = data.data;

@@ -18,8 +18,6 @@ const getSiswaById = async (id) => {
 export default async function page({ params: { id } }) {
   const { user } = await getServerSession(options);
 
-  console.log(user)
-
   const siswa = await getSiswaById(id);
 
   return (
@@ -63,7 +61,7 @@ export default async function page({ params: { id } }) {
         <div className="mt-20 text-center border-b pb-12">
           <h1 className="text-4xl font-medium text-gray-700">
             {siswa.nama}
-            <span className="font-light text-gray-500">{siswa.umur}</span>
+            {/* <span className="font-light text-gray-500">{siswa.umur}</span> */}
           </h1>
           <p className="font-light text-gray-600 mt-3">
             {siswa.kota}, {siswa.provinsi}
