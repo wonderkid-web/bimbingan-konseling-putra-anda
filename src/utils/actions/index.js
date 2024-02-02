@@ -15,6 +15,8 @@ export const addSiswa = async (payload) => {
     if (raw.ok) {
       revalidatePath("/guru/history");
       revalidatePath("/siswa/history");
+      revalidatePath("/guru/history/" + id);
+      revalidatePath("/siswa/history/" + id);
       return raw.json();
     }
   } catch (e) {
@@ -107,6 +109,9 @@ export const deleteOnServer = async (id) => {
 
     if (raw.ok) {
       revalidatePath("/guru/tatib");
+      revalidatePath("/siswa/tatib");
+      revalidatePath("/guru/tatib/" + id);
+      revalidatePath("/siswa/tatib/" + id);
       return raw.json();
     }
   } catch (e) {

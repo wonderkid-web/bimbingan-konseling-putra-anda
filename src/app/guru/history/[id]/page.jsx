@@ -2,12 +2,14 @@ import { options } from "@/app/api/auth/[...nextauth]/options";
 import { TambahHistory } from "@/components/layout/TambahHistory";
 import UpdateStatus from "@/components/layout/UpdateStatus";
 import { getServerSession } from "next-auth";
+import { unstable_noStore } from "next/cache";
 import Link from "next/link";
 import { FaWhatsapp } from "react-icons/fa";
 import uuid from "react-uuid";
 import { Toaster } from "sonner";
 
 const getSiswaById = async (id) => {
+  unstable_noStore()
   const raw = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_API_URL}/history/${id}`
   );
