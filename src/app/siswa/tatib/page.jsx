@@ -1,9 +1,11 @@
+import { unstable_noStore } from "next/cache";
 import Link from "next/link";
 import React from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import uuid from "react-uuid";
 
 const getPeraturan = async () => {
+  unstable_noStore()
   const raw = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/rules`);
   return raw.json();
 };
