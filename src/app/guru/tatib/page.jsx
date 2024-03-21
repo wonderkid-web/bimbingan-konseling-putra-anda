@@ -104,7 +104,9 @@ export default function Page() {
               </h1>
 
               <div className="relative flex flex-col overflow-x-auto shadow-md sm:rounded-lg my-4 h-[65vh]">
+                {/* Tombol Tambah Peraturan Tatib */}
                 <Tambah setNewVisi={setNewVisi} />
+                
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
                   <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>

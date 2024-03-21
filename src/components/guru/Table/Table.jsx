@@ -43,12 +43,16 @@ import ButtonSignout from "@/components/Auth/ButtonSignout";
 import { deleteHistory } from "@/utils/actions";
 import { useRouter } from "next/navigation";
 import { Toaster, toast } from "sonner";
+import { DownloadTableExcel } from 'react-export-table-to-excel';
+import { useDownloadExcel } from 'react-export-table-to-excel';
+
 
 export function DataTableDemo({ data }) {
   const [sorting, setSorting] = React.useState([]);
   const [columnFilters, setColumnFilters] = React.useState([]);
   const [columnVisibility, setColumnVisibility] = React.useState({});
   const [rowSelection, setRowSelection] = React.useState({});
+  const tableRef = React.useRef(null);
 
   const router = useRouter()
 
@@ -131,11 +135,19 @@ export function DataTableDemo({ data }) {
       rowSelection,
     },
   });
+    const { onDownload } = useDownloadExcel({
+        currentTableRef: tableRef.current,
+        filename: 'Users table',
+        sheet: 'Users'
+    })
+
 
   return (
     <div className="w-full">
       <Toaster />
       <div className="flex justify-between items-center py-4">
+      <button className="p-2 rounded-md bg-green-500 text-white font-semibold" onClick={onDownload}> Export Rekapitulasi</button>
+
         <Input
           placeholder="Filter NISN..."
           value={table.getColumn("nisn")?.getFilterValue() ?? ""}
@@ -180,7 +192,7 @@ export function DataTableDemo({ data }) {
         </div>
       </div>
       <div className="rounded-md border">
-        <Table>
+        <Table ref={tableRef}>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
