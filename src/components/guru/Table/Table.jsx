@@ -45,6 +45,15 @@ import { useRouter } from "next/navigation";
 import { Toaster, toast } from "sonner";
 import { DownloadTableExcel } from 'react-export-table-to-excel';
 import { useDownloadExcel } from 'react-export-table-to-excel';
+import { parseISO, format } from 'date-fns';
+import {id} from 'date-fns/locale/id';
+
+// Format the date to include the date, time, and minutes with Indonesian locale
+const formattedDate = (date) =>{ 
+  
+  return format(date, 'dd MMMM yyyy HH:mm', { locale: id })
+}
+
 
 
 export function DataTableDemo({ data }) {
@@ -79,7 +88,7 @@ export function DataTableDemo({ data }) {
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            Jenis Pelanggaran
+            Pelanggaran
             <CaretSortIcon className="ml-2 h-4 w-4" />
           </Button>
         );
@@ -88,6 +97,63 @@ export function DataTableDemo({ data }) {
         <div className="lowercase">{row.getValue("jenis_pelanggaran")}</div>
       ),
     },
+    {
+      accessorKey: "waktu_terjadi",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Waktu Terjadi
+            <CaretSortIcon className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
+      cell: ({ row }) => {
+        const waktu_terjadi = row.getValue('waktu_terjadi')
+        
+        if(waktu_terjadi === undefined) return "-"
+        return <div>{format(waktu_terjadi, 'dd MMMM yyyy HH:mm', { locale: id })}</div>
+      },
+    },
+    // {
+    //   accessorKey: "waktu_selesai",
+    //   header: ({ column }) => {
+    //     return (
+    //       <Button
+    //         variant="ghost"
+    //         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+    //       >
+    //         Waktu Terjadi
+    //         <CaretSortIcon className="ml-2 h-4 w-4" />
+    //       </Button>
+    //     );
+    //   },
+    //   cell: ({ row }) => {
+    //     const waktu_selesai = row.getValue('waktu_selesai')
+        
+    //     if(waktu_selesai === undefined) return "-"
+    //     return <div>{format(waktu_selesai, 'dd MMMM yyyy HH:mm', { locale: id })}</div>
+    //   },
+    // },
+    // {
+    //   accessorKey: "waktu_selesai",
+    //   header: ({ column }) => {
+    //     return (
+    //       <Button
+    //         variant="ghost"
+    //         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+    //       >
+    //         Waktu Selesai
+    //         <CaretSortIcon className="ml-2 h-4 w-4" />
+    //       </Button>
+    //     );
+    //   },
+    //   cell: ({ row }) => (
+    //     <div className="lowercase">{row.getValue("waktu_selesai") !== "-" ? formattedDate(row.getValue("waktu_selesai")) : '-'}</div>
+    //   ),
+    // },
     {
       id: "actions",
       enableHiding: false,
@@ -135,11 +201,12 @@ export function DataTableDemo({ data }) {
       rowSelection,
     },
   });
-    const { onDownload } = useDownloadExcel({
-        currentTableRef: tableRef.current,
-        filename: 'Users table',
-        sheet: 'Users'
-    })
+
+  const { onDownload } = useDownloadExcel({
+      currentTableRef: tableRef.current,
+      filename: 'Users table',
+      sheet: 'Users'
+  })
 
 
   return (
@@ -191,6 +258,7 @@ export function DataTableDemo({ data }) {
           </DropdownMenu>
         </div>
       </div>
+
       <div className="rounded-md border">
         <Table ref={tableRef}>
           <TableHeader>
@@ -241,6 +309,7 @@ export function DataTableDemo({ data }) {
           </TableBody>
         </Table>
       </div>
+      
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">
           {table.getFilteredSelectedRowModel().rows.length} of{" "}

@@ -15,13 +15,45 @@ const getSiswaById = async (id) => {
   return raw.json();
 };
 
+const getHistory = async (nama) => {
+  const raw = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/history`);
+  const box = await raw.json();
+
+  const handleFilter = (box) => {
+    const tempArr = box.map((user) => {
+      if (user.nama === nama) {
+        return user.jenis_pelanggaran;
+      }
+    });
+
+    const newArr = tempArr.filter((user) => user !== undefined);
+
+    return {
+      nama,
+      jenis_pelanggaran: newArr,
+    };
+  };
+
+
+
+  const filtered = handleFilter(box)
+
+  return filtered
+
+};
+
 export default async function page({ params: { id } }) {
   const { user } = await getServerSession(options);
 
   const siswa = await getSiswaById(id);
 
+  const history = await getHistory(siswa.nama)
+
   return (
     <div className="p-12">
+      <pre>
+        {JSON.stringify(history, null, 2)}
+      </pre>
       <Toaster />
       <div className="p-8 bg-white shadow mt-24">
         <div className="grid grid-cols-1 md:grid-cols-3">
@@ -120,15 +152,18 @@ export default async function page({ params: { id } }) {
               </thead>
               <tbody>
                 {!siswa.length ? (
-                  siswa.history.map((hist, i) => (
-                    <tr key={uuid()} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                  history && history.jenis_pelanggaran.map((hist, i) => (
+                    <tr
+                      key={uuid()}
+                      className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                    >
                       <th
                         scope="row"
                         className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                       >
-                        {hist.nama_kasus}
+                        {hist.jenis_pelanggaran}
                       </th>
-                      <td className="px-6 py-4">{hist.waktu_terjadi}</td>
+                      {/* <td className="px-6 py-4">{hist.waktu_terjadi}</td>
                       <td className="px-6 py-4">
                         {hist.waktu_diselesaikan
                           ? hist.waktu_diselesaikan
@@ -145,7 +180,7 @@ export default async function page({ params: { id } }) {
                         >
                           {hist.status}
                         </span>
-                      </td>
+                      </td> */}
                       {user && (
                         <td className={`px-4 py-4`}>
                           <UpdateStatus siswa={siswa} index={i} />
