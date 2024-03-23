@@ -11,11 +11,7 @@ import { format } from 'date-fns';
 import {id as idLocale} from 'date-fns/locale/id';
 
 const getSiswaById = async (id) => {
-<<<<<<< HEAD
-  unstable_noStore()
-=======
   unstable_noStore();
->>>>>>> new-table
   const raw = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_API_URL}/history/${id}`
   );
