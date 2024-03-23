@@ -4,12 +4,14 @@ import { revalidatePath } from "next/cache";
 
 export const addSiswa = async (payload) => {
   try {
+    const ISOType = new Date();
+    const waktu_terjadi = ISOType.toISOString();
     const raw = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/history`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify(payload),
+      body: JSON.stringify({...payload, waktu_terjadi, waktu_selesai: '-'}),
     });
 
     if (raw.ok) {

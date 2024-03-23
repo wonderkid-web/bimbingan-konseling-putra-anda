@@ -57,13 +57,13 @@ export function Tambah({ setNewVisi }) {
               <Label htmlFor="width">Peraturan</Label>
               <Input
                 id="width"
-                className="col-span-2 h-8"
+                className="col-span-2 h-8" 
                 {...register("peraturan")}
               />
             </div>
           </div>
           <Button type="submit" className="bg-red-800 text-white">
-            edit
+            Tambah
           </Button>
         </form>
       </PopoverContent>
