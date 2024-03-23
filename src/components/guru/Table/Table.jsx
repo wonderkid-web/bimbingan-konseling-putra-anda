@@ -45,7 +45,7 @@ import { useRouter } from "next/navigation";
 import { Toaster, toast } from "sonner";
 import { DownloadTableExcel } from 'react-export-table-to-excel';
 import { useDownloadExcel } from 'react-export-table-to-excel';
-import { parseISO, format } from 'date-fns';
+import { format } from 'date-fns';
 import {id} from 'date-fns/locale/id';
 
 // Format the date to include the date, time, and minutes with Indonesian locale
@@ -117,26 +117,27 @@ export function DataTableDemo({ data }) {
         return <div>{format(waktu_terjadi, 'dd MMMM yyyy HH:mm', { locale: id })}</div>
       },
     },
-    // {
-    //   accessorKey: "waktu_selesai",
-    //   header: ({ column }) => {
-    //     return (
-    //       <Button
-    //         variant="ghost"
-    //         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-    //       >
-    //         Waktu Terjadi
-    //         <CaretSortIcon className="ml-2 h-4 w-4" />
-    //       </Button>
-    //     );
-    //   },
-    //   cell: ({ row }) => {
-    //     const waktu_selesai = row.getValue('waktu_selesai')
+    {
+      accessorKey: "waktu_selesai",
+      header: ({ column }) => {
+        return (
+          <Button
+            className="hidden"
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Waktu Selesai
+            <CaretSortIcon className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
+      cell: ({ row }) => {
+        const waktu_selesai = row.getValue('waktu_selesai')
         
-    //     if(waktu_selesai === undefined) return "-"
-    //     return <div>{format(waktu_selesai, 'dd MMMM yyyy HH:mm', { locale: id })}</div>
-    //   },
-    // },
+        if(waktu_selesai === "-" || waktu_selesai === undefined) return ""
+        return <div className="hidden">{format(waktu_selesai, 'dd MMMM yyyy HH:mm', { locale: id })}</div>
+      },
+    },
     // {
     //   accessorKey: "waktu_selesai",
     //   header: ({ column }) => {
@@ -204,8 +205,8 @@ export function DataTableDemo({ data }) {
 
   const { onDownload } = useDownloadExcel({
       currentTableRef: tableRef.current,
-      filename: 'Users table',
-      sheet: 'Users'
+      filename: 'Rekapitulasi',
+      sheet: 'Siswa'
   })
 
 

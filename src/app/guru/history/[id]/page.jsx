@@ -7,9 +7,11 @@ import Link from "next/link";
 import { FaWhatsapp } from "react-icons/fa";
 import uuid from "react-uuid";
 import { Toaster } from "sonner";
+import { format } from 'date-fns';
+import {id as idLocale} from 'date-fns/locale/id';
 
 const getSiswaById = async (id) => {
-  unstable_noStore()
+  unstable_noStore();
   const raw = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_API_URL}/history/${id}`
   );
@@ -17,14 +19,19 @@ const getSiswaById = async (id) => {
   return raw.json();
 };
 
-const getHistory = async (nama) => {
+const getHistory = async (nama, id) => {
   const raw = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/history`);
   const box = await raw.json();
 
   const handleFilter = (box) => {
+    const {nisn} = box.find(user=> user.id === id) 
+
     const tempArr = box.map((user) => {
-      if (user.nama === nama) {
-        return user.jenis_pelanggaran;
+
+      if (user.nisn === nisn) {
+        return {
+          ...user
+        };
       }
     });
 
@@ -36,12 +43,9 @@ const getHistory = async (nama) => {
     };
   };
 
+  const filtered = handleFilter(box);
 
-
-  const filtered = handleFilter(box)
-
-  return filtered
-
+  return filtered;
 };
 
 export default async function page({ params: { id } }) {
@@ -49,13 +53,10 @@ export default async function page({ params: { id } }) {
 
   const siswa = await getSiswaById(id);
 
-  const history = await getHistory(siswa.nama)
+  const history = await getHistory(siswa.nama, id);
 
   return (
     <div className="p-12">
-      <pre>
-        {JSON.stringify(history, null, 2)}
-      </pre>
       <Toaster />
       <div className="p-8 bg-white shadow mt-24">
         <div className="grid grid-cols-1 md:grid-cols-3">
@@ -76,9 +77,9 @@ export default async function page({ params: { id } }) {
                 fill="red"
               >
                 <path
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                 />
               </svg>
             </div>
@@ -92,6 +93,7 @@ export default async function page({ params: { id } }) {
             </Link>
           </div>
         </div>
+
         <div className="mt-20 text-center border-b pb-12">
           <h1 className="text-4xl font-medium text-gray-700">
             {siswa.nama}
@@ -154,7 +156,8 @@ export default async function page({ params: { id } }) {
               </thead>
               <tbody>
                 {!siswa.length ? (
-                  history && history.jenis_pelanggaran.map((hist, i) => (
+                  history &&
+                  history.jenis_pelanggaran.map((hist, i) => (
                     <tr
                       key={uuid()}
                       className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
@@ -165,27 +168,20 @@ export default async function page({ params: { id } }) {
                       >
                         {hist.jenis_pelanggaran}
                       </th>
-                      {/* <td className="px-6 py-4">{hist.waktu_terjadi}</td>
                       <td className="px-6 py-4">
-                        {hist.waktu_diselesaikan
-                          ? hist.waktu_diselesaikan
-                          : "-"}
+                        {hist.waktu_terjadi === "-" ? "-" : format(hist.waktu_terjadi, "dd MMMM yyyy HH:mm", {
+                          locale: idLocale,
+                        }) || "-"}
                       </td>
-                      <td className={`px-4 py-4 text-center`}>
-                        <span
-                          className={`p-2 font-semibold rounded text-white  
-                          ${hist.status == "Bermasalah" && "bg-red-500"}
-                          ${hist.status == "Proses" && "bg-yellow-500"}
-                          ${hist.status == "Selesai" && "bg-green-500"}
-                          
-                          `}
-                        >
-                          {hist.status}
-                        </span>
-                      </td> */}
+                      <td className="px-6 py-4">
+                        {hist.waktu_selesai === "-" ? "-" : format(hist.waktu_selesai, "dd MMMM yyyy HH:mm", {
+                          locale: idLocale,
+                        }) || "-"}
+                      </td>
+
                       {user && (
-                        <td className={`px-4 py-4`}>
-                          <UpdateStatus siswa={siswa} index={i} />
+                        <td className={`px-4 py-4 mx-auto`}>
+                          <UpdateStatus siswa={hist}/>
                         </td>
                       )}
                     </tr>
