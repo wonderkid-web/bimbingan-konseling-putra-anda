@@ -69,12 +69,12 @@ export default function LoginForm() {
       >
         Sign in
       </button>
-      <Link
+      {/* <Link
         href={"/siswa"}
         className="text-sm font-light text-gray-500 dark:text-gray-400 mt-[20px]"
       >
         Masuk Sebagai Siswa?
-      </Link>
+      </Link> */}
     </form>
   );
 }

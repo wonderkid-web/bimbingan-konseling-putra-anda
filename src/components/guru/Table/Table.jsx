@@ -47,6 +47,7 @@ import { DownloadTableExcel } from 'react-export-table-to-excel';
 import { useDownloadExcel } from 'react-export-table-to-excel';
 import { format } from 'date-fns';
 import {id} from 'date-fns/locale/id';
+import Loader from "@/components/layout/Loader";
 
 // Format the date to include the date, time, and minutes with Indonesian locale
 const formattedDate = (date) =>{ 
@@ -260,7 +261,7 @@ export function DataTableDemo({ data }) {
         </div>
       </div>
 
-      <div className="rounded-md border">
+     { !data ? <Loader /> : <div className="rounded-md border">
         <Table ref={tableRef}>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -303,13 +304,13 @@ export function DataTableDemo({ data }) {
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  <Loader />
                 </TableCell>
               </TableRow>
             )}
           </TableBody>
         </Table>
-      </div>
+      </div>}
       
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">

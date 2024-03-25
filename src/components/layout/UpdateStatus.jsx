@@ -49,7 +49,7 @@ export default function UpdateStatus({ siswa, index }) {
   };
 
   return (
-   <button className="p-2 rounded-md bg-red-500 text-white font-semibold mx-auto" onClick={() => onUpdateHistory()}>Selesai</button>
+   <button className="p-2 rounded-md bg-red-500 text-white font-semibold mx-auto hover:bg-red-600 hover:scale-110" onClick={() => onUpdateHistory()}>Selesai</button>
     // <DropdownMenu>
     //   <DropdownMenuTrigger asChild>
     //     <Button variant="ghost" className="h-8 w-8 p-0">
