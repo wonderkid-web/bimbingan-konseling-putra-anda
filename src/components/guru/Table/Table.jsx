@@ -63,6 +63,10 @@ export function DataTableDemo({ data }) {
   const [columnVisibility, setColumnVisibility] = React.useState({});
   const [rowSelection, setRowSelection] = React.useState({});
   const tableRef = React.useRef(null);
+  const [pagination, setPagination] = React.useState({
+    pageIndex: 0, //initial page index
+    pageSize: 10, //default page size
+  });
 
   const router = useRouter()
 
@@ -196,6 +200,13 @@ export function DataTableDemo({ data }) {
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
+    getPaginationRowModel: getPaginationRowModel(),
+    initialState: {
+      pagination: {
+        pageIndex: 0, //custom initial page index
+        pageSize: 100, //custom default page size
+      },
+    },
     state: {
       sorting,
       columnFilters,
