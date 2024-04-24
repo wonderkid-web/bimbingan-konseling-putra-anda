@@ -6,25 +6,23 @@ export default function App() {
   const { size, elapsed, percentage, download, cancel, error, isInProgress } =
     useDownloader();
 
-  const fileUrl = "/teguran1.pdf"
-  const filename = "Format Surat Peringatan dan Teguran-1.pdf";
+  const fileUrl = "/pemanggilan.pdf";
+  const filename = "Format Surat Pemanggilan Orang Tua.pdf";
 
-  const fileUrl2 = "/teguran2.pdf"
-  const filename2 = "Format Surat Peringatan dan Teguran-2.pdf";
-  
-  const fileUrl3 = "/teguran3.pdf"
-  const filename3 = "Format Surat Peringatan dan Teguran-3.pdf";
+  const fileUrl2 = "/peringatan.pdf";
+  const filename2 = "Format Surat Peringatan.pdf";
+
+  // const fileUrl3 = "/teguran3.pdf"
+  // const filename3 = "Format Surat Peringatan dan Teguran-3.pdf";
 
   return (
     <div className="grid grid-cols-3 h-[90vh] items-center">
       <div className="max-w-md mx-auto p-4 rounded-lg shadow-md">
         <h1 className="text-2xl font-bold mb-4">
-          Format Surat Peringatan dan Teguran-1
+          Format Surat Pemanggilan Orang Tua
         </h1>
         <p className="text-gray-600 mb-4">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae
-          quia veniam alias? Consequatur doloribus perferendis itaque quasi,
-          minima repellendus. Itaque reprehenderit vel aperiam ratione dolorum?
+          Gunakan Template Format surat ini untuk kasus pemanggilan orang tua.
         </p>
         <div className="mb-4">
           <div
@@ -73,12 +71,10 @@ export default function App() {
 
       <div className="max-w-md mx-auto p-4 rounded-lg shadow-md">
         <h1 className="text-2xl font-bold mb-4">
-          Format Surat Peringatan dan Teguran-2
+          Format Surat Peringatan
         </h1>
         <p className="text-gray-600 mb-4">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae
-          quia veniam alias? Consequatur doloribus perferendis itaque quasi,
-          minima repellendus. Itaque reprehenderit vel aperiam ratione dolorum?
+          Gunakan Template Format surat ini untuk kasus peringatan.
         </p>
         <div className="mb-4">
           <div
@@ -103,7 +99,6 @@ export default function App() {
               percentage: <b>{percentage}%</b>
             </p>
           </li>
-
         </ul>
 
         <div className="flex justify-end mt-4">
@@ -111,7 +106,8 @@ export default function App() {
             className={`inline-flex items-center px-4 py-2 ${
               isInProgress ? "bg-gray-500" : "bg-blue-500"
             } text-white font-bold rounded`}
-            disabled={isInProgress}            onClick={() => download(fileUrl2, filename2)}
+            disabled={isInProgress}
+            onClick={() => download(fileUrl2, filename2)}
           >
             Download file
           </button>
@@ -124,7 +120,7 @@ export default function App() {
           </button>
         </div>
       </div>
-      <div className="max-w-md mx-auto p-4 rounded-lg shadow-md">
+      {/* <div className="max-w-md mx-auto p-4 rounded-lg shadow-md">
         <h1 className="text-2xl font-bold mb-4">
           Format Surat Peringatan dan Teguran-3
         </h1>
@@ -156,7 +152,6 @@ export default function App() {
               percentage: <b>{percentage}%</b>
             </p>
           </li>
-
         </ul>
 
         <div className="flex justify-end mt-4">
@@ -173,10 +168,12 @@ export default function App() {
             className="inline-flex items-center px-4 py-2 bg-blue-500 text-white font-bold rounded disabled:opacity-50 ml-2"
             disabled={!isInProgress}
             onClick={() => cancel()}
-          >            Cancel the download
+          >
+            {" "}
+            Cancel the download
           </button>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
