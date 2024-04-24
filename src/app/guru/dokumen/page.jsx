@@ -16,7 +16,7 @@ export default function App() {
   // const filename3 = "Format Surat Peringatan dan Teguran-3.pdf";
 
   return (
-    <div className="grid grid-cols-3 h-[90vh] items-center">
+    <div className="flex justify-between h-[90vh] items-center">
       <div className="max-w-md mx-auto p-4 rounded-lg shadow-md">
         <h1 className="text-2xl font-bold mb-4">
           Format Surat Pemanggilan Orang Tua
