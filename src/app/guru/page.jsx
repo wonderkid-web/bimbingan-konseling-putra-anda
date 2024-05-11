@@ -1,10 +1,10 @@
 import Image from "next/image";
-import bg from "/public/bg.jpg";
+import bg from "/public/school.jpg";
 
 export default function page() {
   return (
     <div className="relative h-[90vh] flex justify-center items-center">
-      <Image style={{ objectFit: "cover" }} src={bg} fill alt="logo bg" />
+      <Image style={{ objectFit: "contain" }} src={bg} fill alt="logo bg" />
       {/* <div className="w-1/2 p-4 rounded-sm flex flex-col gap-5 backdrop-blur-sm text-white bg-white/10 ...">
         <h1 className="text-2xl text-center">
           Selamat datang di website bimbingan konseling online SMK Putra Anda
